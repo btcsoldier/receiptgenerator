@@ -53,6 +53,18 @@ input[type=range]{width:100%;accent-color:#3f8cff}
 
 /* Direct manipulation */
 .el.dm-ready{cursor:grab}.el.dragging{cursor:grabbing;opacity:.82}.el .el-resize{position:absolute;right:-5px;bottom:-5px;width:11px;height:11px;border-radius:3px;background:#4a8dff;border:2px solid #fff;box-shadow:0 1px 5px #0005;cursor:nwse-resize;display:none;z-index:20}.el.selected .el-resize{display:block}.receipt-resizer,.receipt-resizer-x,.receipt-resizer-y{position:absolute;background:#4a8dff;border:2px solid #fff;box-shadow:0 2px 8px #0005;border-radius:5px;z-index:30}.receipt-resizer{right:-8px;bottom:-8px;width:17px;height:17px;cursor:nwse-resize}.receipt-resizer-x{right:-5px;top:50%;width:10px;height:34px;transform:translateY(-50%);cursor:ew-resize}.receipt-resizer-y{bottom:-5px;left:50%;width:34px;height:10px;transform:translateX(-50%);cursor:ns-resize}.direct-tip{font-size:10px;color:#8193ad;line-height:1.4;margin-top:8px}.pos-readout{font-size:10px;color:#7890af;margin-top:4px}
+
+/* --- Direct manipulation + sortable layers upgrade --- */
+.el.dm-ready{cursor:grab;touch-action:none;user-select:none;position:relative;box-sizing:border-box;transition:box-shadow .12s,outline-color .12s}
+.el.dm-ready:hover{outline:1px dashed rgba(82,153,255,.38);outline-offset:2px}
+.el.dm-ready.dragging{cursor:grabbing;outline:1px solid rgba(72,150,255,.85);box-shadow:0 0 0 3px rgba(72,150,255,.12)}
+.el-resize{position:absolute!important;right:-5px!important;bottom:-5px!important;width:11px!important;height:11px!important;border-radius:3px!important;background:linear-gradient(135deg,#48a8ff,#6677ff)!important;border:2px solid #07111f!important;box-sizing:border-box!important;cursor:nwse-resize!important;z-index:30!important;box-shadow:0 2px 7px rgba(0,0,0,.3)!important;touch-action:none!important}
+.el-resize:hover{transform:scale(1.15)}
+.layer{cursor:grab;user-select:none;touch-action:none;position:relative}
+.layer.layer-dragging{opacity:.45;transform:scale(.985)}
+.layer.layer-over{border-color:rgba(77,156,255,.85)!important;background:rgba(56,126,255,.12)!important}
+.layer-placeholder{height:38px;border:1px dashed rgba(77,156,255,.8);border-radius:10px;margin:5px 0;background:rgba(77,156,255,.07);box-sizing:border-box}
+.layers-dropzone{min-height:8px}
 </style></head><body><div class="app"><header class="top"><div class="brand"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V5a3 3 0 0 1 0 0"/><path d="M9 7h6M9 11h6M9 15h3"/></svg></div><div>Receipt Studio</div><span class="badge">Vinted Valley</span></div><div class="actions"><button class="btn" id="new"><i data-lucide="file-plus-2"></i>New</button><button class="btn" id="img"><i data-lucide="image-plus"></i>Reference image</button><button class="btn" id="save"><i data-lucide="save"></i>Save</button><button class="btn" id="loadBtn"><i data-lucide="folder-open"></i>Load</button><button class="btn" id="html"><i data-lucide="code-2"></i>Export HTML</button><button class="btn primary" id="print"><i data-lucide="printer"></i>Print / PDF</button>
 <input id="projectFile" class="hidden" type="file" accept=".json,application/json"></div></header><main class="main"><aside class="sidebar"><div class="panel"><h3>Add elements</h3><div class="tools"><button class="tool" data-a="text"><b><i data-lucide="type"></i>Text</b><span>Free text</span></button><button class="tool" data-a="image"><b><i data-lucide="image"></i>Image</b><span>Artwork</span></button><button class="tool" data-a="separator"><b><i data-lucide="minus"></i>Separator</b><span>Count-aware</span></button><button class="tool" data-a="spacer"><b><i data-lucide="move-vertical"></i>Spacer</b><span>Vertical space</span></button><button class="tool" data-a="item"><b><i data-lucide="list"></i>Item</b><span>Desc / qty / price</span></button><button class="tool" data-a="total"><b><i data-lucide="equal"></i>Total</b><span>Label + amount</span></button><button class="tool" data-a="barcode"><b><i data-lucide="barcode"></i>Barcode</b><span>Design element</span></button><button class="tool" data-a="qr"><b><i data-lucide="qr-code"></i>QR code</b><span>Design element</span></button></div></div><div class="panel"><h3>Templates</h3><div class="tools"><button class="tool" data-t="retail"><b><i data-lucide="shirt"></i>Retail receipt</b><span>Store, tax & barcode</span></button><button class="tool" data-t="simple"><b><i data-lucide="receipt"></i>Simple</b><span>Minimal starter</span></button></div></div><div class="panel"><h3>Receipt size</h3><div class="field"><label>Width</label><div class="row"><input id="width" type="number" min="25" max="250" step=".1" value="80"><select id="unit"><option>mm</option><option>px</option></select></div></div><div class="field"><label>Height</label><select id="hm"><option value="auto">Auto — fit content</option><option value="fixed">Fixed</option></select></div><div class="field hidden" id="hf"><label>Fixed height</label><input id="height" type="number" min="20" max="1000" value="180"></div><div class="field"><label>Horizontal padding (mm)</label><input id="pad" type="number" min="0" max="30" step=".5" value="4"></div><div class="direct-tip">Drag elements directly on the receipt. Drag the blue corner handle to resize. You can still enter exact values manually below.</div><div class="notice">Separator sizing is content-aware. If you enter <b>----------------</b>, the editor counts the 16 dash characters and maps them to the current receipt character capacity.</div>
 </div><div class="panel"><h3>Receipt fonts</h3>
@@ -84,7 +96,7 @@ input[type=range]{width:100%;accent-color:#3f8cff}
 <div class="field"><label>Guide opacity</label><input id="refOpacity" type="range" min="5" max="90" value="40"></div>
 <div class="row"><label style="font-size:11px;display:flex;align-items:center;gap:6px"><input id="refVisible" type="checkbox" checked> Show guide</label><button class="btn small" id="refRemove" style="margin-left:auto"><i data-lucide="x"></i>Remove</button></div>
 </div>
-</div></aside><div class="resize-handle" id="rh1"></div><section class="stage"><div class="stage-head"><span id="status"></span><span><button class="btn small" id="zo-"><i data-lucide="minus"></i></button> <span id="zl">100%</span> <button class="btn small" id="zoIn"><i data-lucide="plus"></i></button></span></div><div class="stage-scroll"><div class="receipt-wrap"><img id="refImg" class="ref-overlay hidden" alt=""><div id="receipt" class="receipt"><div id="inner" class="receipt-inner"></div><div class="receipt-resizer-x" title="Resize receipt width"></div><div class="receipt-resizer-y" title="Resize receipt height"></div><div class="receipt-resizer" title="Resize receipt"></div></div></div></div></section><div class="resize-handle" id="rh2"></div><aside class="inspector"><div class="panel"><h3>Selected element</h3><div class="row" id="inspActions" style="margin-bottom:10px"></div><div id="insp"><div class="muted">Select an element on the receipt.</div></div></div><div class="panel"><h3>Layers</h3><div id="layers"></div></div></aside></main></div><script>
+</div></aside><div class="resize-handle" id="rh1"></div><section class="stage"><div class="stage-head"><span id="status"></span><span><button class="btn small" id="zo-"><i data-lucide="minus"></i></button> <span id="zl">100%</span> <button class="btn small" id="zoIn"><i data-lucide="plus"></i></button></span></div><div class="stage-scroll"><div class="receipt-wrap"><img id="refImg" class="ref-overlay hidden" alt=""><div id="receipt" class="receipt"><div id="inner" class="receipt-inner"></div><div class="receipt-resizer-x" title="Resize receipt width"></div><div class="receipt-resizer-y" title="Resize receipt height"></div><div class="receipt-resizer" title="Resize receipt"></div></div></div></div></section><div class="resize-handle" id="rh2"></div><aside class="inspector"><div class="panel"><h3>Selected element</h3><div class="row" id="inspActions" style="margin-bottom:10px"></div><div id="insp"><div class="muted">Select an element on the receipt.</div></div></div><div class="panel"><h3>Layers <span class="muted" style="float:right;font-size:10px;font-weight:500">drag to sort</span></h3><div id="layers"></div></div></aside></main></div><script>
 const $=x=>document.querySelector(x);
 const uid=()=>Math.random().toString(36).slice(2,10);
 function defaultEls(){
@@ -220,10 +232,14 @@ function render(){
   i.style.padding=S.pad*3.7795*S.zoom+'px';
   i.style.fontFamily=S.font;
   i.innerHTML='';
+
   S.els.forEach(x=>{
     const d=document.createElement('div');
-    d.className='el'; d.dataset.id=x.id;
+    d.className='el dm-ready';
+    d.dataset.id=x.id;
     d.onclick=z=>{z.stopPropagation();S.sel=x.id;render()};
+    d.onpointerdown=ev=>startElementDrag(ev,x);
+
     if(x.t==='text'){
       d.className+=' text';
       d.style.cssText+=`text-align:${x.align||'left'};font-family:${fontFor(x)};font-size:${(x.size||12)*S.zoom}px;font-weight:${x.bold?700:400};margin-bottom:${(x.space||0)*S.zoom}px;margin-left:${(x.offL||0)*S.zoom}px;margin-right:${(x.offR||0)*S.zoom}px`;
@@ -231,7 +247,8 @@ function render(){
     }else if(x.t==='separator'){
       const q=sep(x); d.className+=' sep';
       d.style.cssText+=`font-family:${fontFor(x)};font-size:${(x.size||12)*S.zoom}px;margin-bottom:${(x.space||0)*S.zoom}px;margin-left:${(x.offL||0)*S.zoom}px;margin-right:${(x.offR||0)*S.zoom}px`;
-      d.textContent=q.text; d.title=`${q.n} ${q.ch} characters · ${q.cap} character capacity`;
+      d.textContent=q.text;
+      d.title=`${q.n} ${q.ch} characters · ${q.cap} character capacity`;
     }else if(x.t==='spacer'){
       d.style.height=(x.height||12)*S.zoom+'px';
     }else if(x.t==='item'){
@@ -251,41 +268,134 @@ function render(){
     }else if(x.t==='qr'){
       d.style.textAlign=x.align||'center'; d.style.marginBottom=(x.space||3)*S.zoom+'px';
       const q=qrUrl(x.value||'https://example.com',x.size||30);
-      d.innerHTML=`<img loading="lazy" alt="QR code" src="${q}" style="width:${Math.min(80,Math.max(10,x.size||30))}%;height:auto;display:block;margin:auto" onerror="this.nextElementSibling.hidden=false">`+
-      `<div class="notice warn" hidden>QR service unavailable. Check your connection.</div>`;
+      d.insertAdjacentHTML('afterbegin',`<img loading="lazy" alt="QR code" src="${q}" style="width:${Math.min(80,Math.max(10,x.size||30))}%;height:auto;display:block;margin:auto" onerror="this.nextElementSibling.hidden=false">`+
+      `<div class="notice warn" hidden>QR service unavailable. Check your connection.</div>`);
     }
-    d.style.position='relative'; d.style.left=((x.posX||0)*S.zoom)+'px'; d.style.top=((x.posY||0)*S.zoom)+'px';
-    if(x.boxW)d.style.width=(x.boxW*S.zoom)+'px'; if(x.boxH)d.style.minHeight=(x.boxH*S.zoom)+'px';
+
+    d.style.position='relative';
+    d.style.left=((x.posX||0)*S.zoom)+'px';
+    d.style.top=((x.posY||0)*S.zoom)+'px';
+    if(x.boxW)d.style.width=(x.boxW*S.zoom)+'px';
+    if(x.boxH)d.style.minHeight=(x.boxH*S.zoom)+'px';
+
+    // Add the resize handle LAST so text/separator content cannot remove it.
+    const rh=document.createElement('span');
+    rh.className='el-resize';
+    rh.title='Drag to resize';
+    rh.onpointerdown=ev=>startElementResize(ev,x);
+    d.appendChild(rh);
+
     if(S.sel===x.id)d.classList.add('selected');
     i.appendChild(d);
   });
-  layers();insp();
+
+  layers();
+  insp();
   $('#status').textContent=`${S.width}${S.unit} · ${S.hm==='auto'?'Auto height':'Fixed height'} · ${cap()} chars/line`;
   $('#zl').textContent=Math.round(S.zoom*100)+'%';
   if(window.lucide)lucide.createIcons();
 }
+
 function layers(){
-  const b=$('#layers');b.innerHTML='';
+  const b=$('#layers');
+  b.innerHTML='';
+  b.classList.add('layers-dropzone');
   const names={text:'Text',image:'Image',separator:'Separator',spacer:'Spacer',item:'Item',total:'Total',barcode:'Barcode',qr:'QR code'};
+
+  // Reverse because the top of the Layers panel represents the top visual layer.
   [...S.els].reverse().forEach(x=>{
     const d=document.createElement('div');
     d.className='layer '+(x.id===S.sel?'active':'');
+    d.dataset.id=x.id;
     d.innerHTML=`
-      <i class="icon" data-lucide="grip-vertical" style="width:14px;height:14px"></i><span class="layer-name">${names[x.t]}</span>
+      <i class="icon layer-grip" data-lucide="grip-vertical" style="width:14px;height:14px"></i>
+      <span class="layer-name">${names[x.t]||x.t}</span>
       <span class="layer-actions">
         <button class="iconbtn" data-u title="Move up"><i data-lucide="chevron-up"></i></button>
         <button class="iconbtn" data-d title="Move down"><i data-lucide="chevron-down"></i></button>
         <button class="iconbtn" data-c title="Duplicate"><i data-lucide="copy"></i></button>
         <button class="iconbtn danger" data-x title="Delete"><i data-lucide="trash-2"></i></button>
       </span>`;
+
     d.onclick=()=>{S.sel=x.id;render()};
     d.querySelector('[data-x]').onclick=z=>{z.stopPropagation();S.els=S.els.filter(a=>a.id!==x.id);if(S.sel===x.id)S.sel=null;render()};
     d.querySelector('[data-u]').onclick=z=>{z.stopPropagation();move(x.id,-1)};
     d.querySelector('[data-d]').onclick=z=>{z.stopPropagation();move(x.id,1)};
     d.querySelector('[data-c]').onclick=z=>{z.stopPropagation();duplicate(x.id)};
+
+    // Pointer-based layer sorting works with mouse, pen and touch.
+    d.onpointerdown=ev=>startLayerDrag(ev,x,d,b);
     b.appendChild(d);
   });
+  if(window.lucide)lucide.createIcons();
 }
+
+function startLayerDrag(ev,x,row,list){
+  if(ev.button!==0)return;
+  if(ev.target.closest('button'))return;
+  ev.preventDefault();
+  ev.stopPropagation();
+
+  const startY=ev.clientY;
+  let moved=false;
+  let placeholder=null;
+  row.classList.add('layer-dragging');
+  row.setPointerCapture?.(ev.pointerId);
+
+  const cleanup=()=>{
+    row.classList.remove('layer-dragging');
+    if(placeholder)placeholder.remove();
+    document.removeEventListener('pointermove',moveLayer);
+    document.removeEventListener('pointerup',endLayer);
+    document.removeEventListener('pointercancel',endLayer);
+  };
+
+  const moveLayer=e=>{
+    const dy=Math.abs(e.clientY-startY);
+    if(dy>3)moved=true;
+    if(!moved)return;
+    e.preventDefault();
+
+    if(!placeholder){
+      placeholder=document.createElement('div');
+      placeholder.className='layer-placeholder';
+    }
+
+    const rows=[...list.querySelectorAll('.layer:not(.layer-dragging)')];
+    let before=null;
+    let best=Infinity;
+    for(const target of rows){
+      const rect=target.getBoundingClientRect();
+      const dist=Math.abs(e.clientY-(rect.top+rect.height/2));
+      if(e.clientY<rect.top+rect.height/2 && dist<best){before=target;best=dist}
+    }
+    if(before)list.insertBefore(placeholder,before);
+    else list.appendChild(placeholder);
+  };
+
+  const endLayer=()=>{
+    if(!moved){cleanup();return}
+
+    const visibleRows=[...list.querySelectorAll('.layer')];
+    const ids=visibleRows.filter(r=>r!==row).map(r=>r.dataset.id);
+    const pIndex=placeholder?[...list.children].indexOf(placeholder):list.children.length;
+    const visualIds=ids.slice();
+    visualIds.splice(Math.max(0,Math.min(pIndex,visualIds.length)),0,x.id);
+
+    // Layer panel is top-to-bottom, while S.els is bottom-to-top.
+    const reordered=[...visualIds].reverse();
+    const byId=new Map(S.els.map(el=>[el.id,el]));
+    S.els=reordered.map(id=>byId.get(id)).filter(Boolean);
+    S.sel=x.id;
+    cleanup();
+    render();
+  };
+
+  document.addEventListener('pointermove',moveLayer,{passive:false});
+  document.addEventListener('pointerup',endLayer);
+  document.addEventListener('pointercancel',endLayer);
+}
+
 function move(id,n){
   const a=S.els.findIndex(x=>x.id===id),b=a+n;
   if(b<0||b>=S.els.length)return;
@@ -381,8 +491,71 @@ $('#fontSuggestions').innerHTML=suggestedFonts.map(f=>`<span class="chip" data-s
 $('#fontSuggestions').querySelectorAll('[data-sug]').forEach(c=>c.onclick=()=>addCustomFont(c.dataset.sug));
 $('#addFontBtn').onclick=()=>{addCustomFont($('#customFontName').value);$('#customFontName').value=''};
 $('#customFontName').onkeydown=z=>{if(z.key==='Enter'){z.preventDefault();$('#addFontBtn').click()}};
-function startElementDrag(ev,x){if(ev.button!==0||ev.target.classList.contains('el-resize'))return;ev.preventDefault();ev.stopPropagation();S.sel=x.id;const sx=ev.clientX,sy=ev.clientY,ox=Number(x.posX)||0,oy=Number(x.posY)||0,el=ev.currentTarget;el.classList.add('dragging');const mv=e=>{x.posX=Math.round(ox+(e.clientX-sx)/S.zoom);x.posY=Math.round(oy+(e.clientY-sy)/S.zoom);el.style.left=(x.posX*S.zoom)+'px';el.style.top=(x.posY*S.zoom)+'px'};const up=()=>{el.classList.remove('dragging');document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up);render()};document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up)}
-function startElementResize(ev,x){if(ev.button!==0)return;ev.preventDefault();ev.stopPropagation();S.sel=x.id;const el=ev.currentTarget.parentElement,sx=ev.clientX,sy=ev.clientY,sw=el.getBoundingClientRect().width/S.zoom,sh=el.getBoundingClientRect().height/S.zoom;const mv=e=>{x.boxW=Math.max(20,Math.round(sw+(e.clientX-sx)/S.zoom));x.boxH=Math.max(10,Math.round(sh+(e.clientY-sy)/S.zoom));el.style.width=(x.boxW*S.zoom)+'px';el.style.minHeight=(x.boxH*S.zoom)+'px'};const up=()=>{document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up);render()};document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up)}
+function startElementDrag(ev,x){
+  if(ev.button!==0)return;
+  if(ev.target.closest('.el-resize'))return;
+  if(ev.target.closest('input,textarea,select,button,a'))return;
+  ev.preventDefault();
+  ev.stopPropagation();
+
+  S.sel=x.id;
+  const el=ev.currentTarget;
+  const sx=ev.clientX, sy=ev.clientY;
+  const ox=Number(x.posX)||0, oy=Number(x.posY)||0;
+  el.classList.add('dragging');
+  el.setPointerCapture?.(ev.pointerId);
+
+  const mv=e=>{
+    e.preventDefault();
+    x.posX=Math.round(ox+(e.clientX-sx)/S.zoom);
+    x.posY=Math.round(oy+(e.clientY-sy)/S.zoom);
+    el.style.left=(x.posX*S.zoom)+'px';
+    el.style.top=(x.posY*S.zoom)+'px';
+  };
+  const up=()=>{
+    el.classList.remove('dragging');
+    document.removeEventListener('pointermove',mv);
+    document.removeEventListener('pointerup',up);
+    document.removeEventListener('pointercancel',up);
+    render();
+  };
+  document.addEventListener('pointermove',mv,{passive:false});
+  document.addEventListener('pointerup',up);
+  document.addEventListener('pointercancel',up);
+}
+
+function startElementResize(ev,x){
+  if(ev.button!==0)return;
+  ev.preventDefault();
+  ev.stopPropagation();
+  S.sel=x.id;
+
+  const el=ev.currentTarget.parentElement;
+  const sx=ev.clientX, sy=ev.clientY;
+  const rect=el.getBoundingClientRect();
+  const sw=rect.width/S.zoom;
+  const sh=rect.height/S.zoom;
+  const oldW=Number(x.boxW)||sw;
+  const oldH=Number(x.boxH)||sh;
+
+  const mv=e=>{
+    e.preventDefault();
+    x.boxW=Math.max(20,Math.round(oldW+(e.clientX-sx)/S.zoom));
+    x.boxH=Math.max(10,Math.round(oldH+(e.clientY-sy)/S.zoom));
+    el.style.width=(x.boxW*S.zoom)+'px';
+    el.style.minHeight=(x.boxH*S.zoom)+'px';
+  };
+  const up=()=>{
+    document.removeEventListener('pointermove',mv);
+    document.removeEventListener('pointerup',up);
+    document.removeEventListener('pointercancel',up);
+    render();
+  };
+  document.addEventListener('pointermove',mv,{passive:false});
+  document.addEventListener('pointerup',up);
+  document.addEventListener('pointercancel',up);
+}
+
 function receiptResize(ev,axis){ev.preventDefault();ev.stopPropagation();const sx=ev.clientX,sy=ev.clientY,sw=px()/S.zoom,sh=S.unit==='mm'?S.height*3.779527559:S.height;const mv=e=>{if(axis!=='y'){S.width=Math.round((S.unit==='mm'?(sw+(e.clientX-sx)/S.zoom)/3.779527559:(sw+(e.clientX-sx)/S.zoom))*10)/10;$('#width').value=S.width}if(axis!=='x'){S.hm='fixed';S.height=Math.round((S.unit==='mm'?(sh+(e.clientY-sy)/S.zoom)/3.779527559:(sh+(e.clientY-sy)/S.zoom))*10)/10;$('#hm').value='fixed';$('#height').value=S.height;$('#hf').classList.remove('hidden')}render()};const up=()=>{document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up)};document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up)}
 function setupReceiptResize(){const x=$('.receipt-resizer-x'),y=$('.receipt-resizer-y'),b=$('.receipt-resizer');if(x)x.onpointerdown=e=>receiptResize(e,'x');if(y)y.onpointerdown=e=>receiptResize(e,'y');if(b)b.onpointerdown=e=>receiptResize(e,'both')}
 function insp(){
@@ -493,7 +666,7 @@ $('#refRemove').onclick=()=>{S.reference=null;applyReference();$('#refControls')
 
 $('#print').onclick=()=>window.print();
 
-function projectData(){return JSON.stringify({version:3,app:'Vinted Valley Receipt Studio',savedAt:new Date().toISOString(),settings:{width:S.width,unit:S.unit,hm:S.hm,height:S.height,pad:S.pad,font:S.font,customFonts:S.customFonts},elements:S.els},null,2)}
+function projectData(){return JSON.stringify({version:4,app:'Vinted Valley Receipt Studio',savedAt:new Date().toISOString(),settings:{width:S.width,unit:S.unit,hm:S.hm,height:S.height,pad:S.pad,font:S.font,customFonts:S.customFonts},elements:S.els},null,2)}
 $('#save').onclick=()=>{
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([projectData()],{type:'application/json'}));
