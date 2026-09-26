@@ -1,0 +1,538 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Receipt Studio — Vinted Valley</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Courier+Prime:wght@400;700&family=Space+Mono:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&family=PT+Mono&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<style>
+:root{--bg:#070b14;--p:#0d1320;--p2:#111a2a;--l:#202c40;--t:#eef4ff;--m:#8e9ab0;--b:#3f8cff;--v:#7658ff}*{box-sizing:border-box}html{scrollbar-width:none}body{margin:0;background:radial-gradient(circle at 50% -10%,#17294c,#070b14 42%);color:var(--t);font:14px/1.4 Inter,system-ui,sans-serif;height:100vh;overflow:hidden}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{height:100vh;display:grid;grid-template-rows:60px 1fr}.top{display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--l);background:#090e18dd;backdrop-filter:blur(18px)}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.01em}.mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--b),var(--v));display:grid;place-items:center;box-shadow:0 4px 14px -4px #3f8cff66}.mark svg{width:18px;height:18px;stroke:#fff}.actions,.row{display:flex;gap:8px;align-items:center}.btn{border:1px solid var(--l);background:#101827;color:var(--t);border-radius:9px;padding:8px 13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:.15s}.btn svg{width:14px;height:14px;flex:none}.btn:hover{border-color:#35527a;background:#142033;transform:translateY(-1px)}.btn:active{transform:translateY(0)}.primary{border:0;background:linear-gradient(135deg,#318bff,#5669ff)}.small{padding:6px 9px;font-size:12px}.main{display:grid;grid-template-columns:280px 5px 1fr 5px 300px;min-height:0}.sidebar,.inspector{background:#0b111d;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}.sidebar::-webkit-scrollbar,.inspector::-webkit-scrollbar,.stage::-webkit-scrollbar,.stage-scroll::-webkit-scrollbar{display:none}.sidebar{border-right:1px solid var(--l)}.inspector{border-left:1px solid var(--l)}.resize-handle{background:transparent;cursor:col-resize;position:relative;z-index:5}.resize-handle:after{content:'';position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--l);transform:translateX(-50%)}.resize-handle:hover:after,.resize-handle.active:after{background:var(--b);width:2px}.toast-wrap{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:99;display:flex;flex-direction:column;gap:8px;align-items:center}.toast{background:#101827;border:1px solid #2a3d5c;color:#eef4ff;padding:9px 16px;border-radius:99px;font-size:12.5px;font-weight:600;box-shadow:0 12px 30px -8px #000a;display:flex;align-items:center;gap:7px;animation:toastin .18s ease-out}.toast svg{width:14px;height:14px;stroke:#6ee7a8;flex:none}@keyframes toastin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}.panel{padding:16px;border-bottom:1px solid var(--l)}h3{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#aebbd0;margin:0 0 11px}.tools{display:grid;grid-template-columns:1fr 1fr;gap:7px}.tool{background:#101827;border:1px solid var(--l);border-radius:9px;color:#dce7fa;padding:11px 8px;text-align:left;font-size:12px;transition:.15s}.tool:hover{border-color:#3d6da7;background:#131f33;transform:translateY(-1px)}.tool b{display:flex;align-items:center;gap:6px;color:#fff;margin-bottom:3px;font-weight:650}.tool b i{width:14px;height:14px;stroke:#79b2ff;flex:none}.tool span{color:var(--m);font-size:10px;padding-left:20px}.field{margin-bottom:10px}.field label{display:block;color:#95a2b8;font-size:11px;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;background:#0a101b;border:1px solid #243147;color:#edf4ff;border-radius:8px;padding:8px 9px;outline:0}.field input:focus,.field select:focus,.field textarea:focus{border-color:#4a82cf}.notice{font-size:11px;color:#8d9bb0;line-height:1.45;background:#0d1727;border:1px solid #1e304a;border-radius:9px;padding:10px}.badge{font-size:10px;color:#79b2ff;background:#102744;border:1px solid #234a78;border-radius:99px;padding:3px 7px}.hidden{display:none!important}.muted{color:var(--m)}.stage{min-width:0;overflow:auto;background:linear-gradient(90deg,#0a101a,#0d1420 50%,#0a101a)}.stage-head{height:48px;border-bottom:1px solid var(--l);display:flex;align-items:center;justify-content:space-between;padding:0 15px;color:var(--m);font-size:12px}.stage-scroll{height:calc(100% - 48px);overflow:auto;padding:45px 70px 100px;display:flex;justify-content:center;align-items:flex-start}.receipt{background:#fff;color:#111;box-shadow:0 24px 80px #0008;position:relative;transform-origin:top center}.receipt-inner{padding:16px;min-height:100%;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}.el{position:relative;line-height:1.22;white-space:pre-wrap;overflow-wrap:anywhere}.el.selected{outline:2px solid #4a8dff;outline-offset:2px}.el:hover{outline:1px dashed #8cb8ff}.text{text-align:left}.image{text-align:center}.image img{display:block;max-width:100%;height:auto;margin:auto}.sep{white-space:pre;overflow:hidden}.item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px}.total{display:flex;justify-content:space-between;font-weight:700}.layer{display:flex;align-items:center;gap:5px;padding:8px;border:1px solid transparent;border-radius:8px;margin-bottom:4px}.layer:hover,.layer.active{background:#15233a}.layer-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}.icon{color:#7faeff}.empty{border:1px dashed #8190a8;padding:25px 10px;text-align:center;color:#68758a;font-size:12px}
+
+/* Uiverse-inspired value controls */
+.value{background:transparent;border:0;padding:9px 10px;color:#fff;display:flex;align-items:center;position:relative;gap:8px;cursor:pointer;border-radius:7px;width:100%;text-align:left}
+.value:not(:active):hover,.value:focus{background:#21262c}
+.value:focus,.value:active{background:#1a1f24;outline:none}
+.value::before{content:"";position:absolute;top:5px;left:-8px;width:4px;height:80%;background:#2f81f7;border-radius:5px;opacity:0}
+.value:focus::before,.value:active::before,.value.active::before{opacity:1}
+.value svg{width:15px;height:15px;flex:none}
+.value.danger{color:#ff8795}.value.danger:hover{background:#29151b}
+.value.danger::before{background:#ff5e72}
+.layer-actions{display:flex;gap:3px;opacity:.25;transition:.15s}.layer:hover .layer-actions,.layer.active .layer-actions{opacity:1}
+.iconbtn{width:27px;height:27px;padding:0;display:grid;place-items:center;border:0;background:transparent;color:#aebbd0;border-radius:6px}.iconbtn i{width:14px;height:14px}
+.iconbtn:hover{background:#21262c;color:#fff}.iconbtn.danger:hover{color:#ff7182;background:#29151b}
+.selectbox{background:#0a101b;border:1px solid #243147;color:#edf4ff;border-radius:8px;padding:8px 9px;width:100%}
+.segment{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;background:#090f19;border:1px solid #202c40;padding:4px;border-radius:9px}
+.segment button{border:0;background:transparent;color:#9eabc0;padding:7px 5px;border-radius:6px;font-size:11px}
+.segment button.active{background:#172b46;color:#fff;box-shadow:inset 0 0 0 1px #294c75}
+.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.preset{border:1px solid #26354a;background:#0d1725;color:#dfe9f8;border-radius:8px;padding:8px;font-size:11px;text-align:left}
+.preset:hover{border-color:#3d70a8;background:#122238}
+.url-preview{font-size:10px;color:#7f91aa;word-break:break-all;margin-top:6px}
+.success{border-color:#245f49;background:#0d211a;color:#91e0b9}
+.warn{border-color:#5e4d24;background:#241d0d;color:#e6c57e}
+.upload-drop{border:1.5px dashed #355274;border-radius:10px;padding:18px 12px;text-align:center;background:#0c1523;color:#93a4bd;cursor:pointer;transition:.15s;display:flex;flex-direction:column;align-items:center;gap:7px}
+.upload-drop:hover,.upload-drop.drag{border-color:#4e8fe2;background:#0e1a2b;color:#cfe2fb}
+.upload-drop.drag{border-style:solid;box-shadow:0 0 0 3px #4e8fe233}
+.upload-drop i{width:22px;height:22px;stroke:#5b8fd9;flex:none}
+.upload-drop b{color:#dce7fa;font-size:12px;font-weight:650}
+.upload-drop .dz-sub{font-size:10.5px;color:#7f91aa}
+.upload-drop.compact{flex-direction:row;padding:10px 12px;text-align:left;gap:9px}
+.upload-drop.compact i{width:16px;height:16px}
+.upload-drop.compact .dz-text{display:flex;flex-direction:column;gap:1px}
+.upload-drop input[type=file]{display:none}
+.thumb{width:100%;border-radius:8px;border:1px solid #243147;margin-bottom:8px;display:block;max-height:120px;object-fit:contain;background:#0a101b}
+.receipt-wrap{position:relative}
+.ref-overlay{position:absolute;top:0;left:0;width:100%;height:auto;pointer-events:none;z-index:3;user-select:none}
+.ref-overlay.hidden{display:none}
+.ref-controls .row{align-items:center}
+input[type=range]{width:100%;accent-color:#3f8cff}
+.font-preview{background:#fff;color:#111;border-radius:7px;padding:9px;text-align:center;font-size:16px;margin-top:7px}
+.chip{border:1px solid #26354a;background:#0d1725;color:#bcd0ec;border-radius:99px;padding:5px 10px;font-size:11px;display:inline-flex;align-items:center;gap:5px}
+.chip:hover{border-color:#3d70a8;background:#122238;color:#fff}
+.chip i{width:11px;height:11px}
+.chip.rm i{stroke:#ff8795}
+.item-sku{font-size:.8em;color:#333;letter-spacing:.02em;margin-bottom:1px}
+
+</style></head><body><div class="app"><header class="top"><div class="brand"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V5a3 3 0 0 1 0 0"/><path d="M9 7h6M9 11h6M9 15h3"/></svg></div><div>Receipt Studio</div><span class="badge">Vinted Valley</span></div><div class="actions"><button class="btn" id="new"><i data-lucide="file-plus-2"></i>New</button><button class="btn" id="img"><i data-lucide="image-plus"></i>Reference image</button><button class="btn" id="save"><i data-lucide="save"></i>Save</button><button class="btn" id="loadBtn"><i data-lucide="folder-open"></i>Load</button><button class="btn" id="html"><i data-lucide="code-2"></i>Export HTML</button><button class="btn primary" id="print"><i data-lucide="printer"></i>Print / PDF</button>
+<input id="projectFile" class="hidden" type="file" accept=".json,application/json"></div></header><main class="main"><aside class="sidebar"><div class="panel"><h3>Add elements</h3><div class="tools"><button class="tool" data-a="text"><b><i data-lucide="type"></i>Text</b><span>Free text</span></button><button class="tool" data-a="image"><b><i data-lucide="image"></i>Image</b><span>Artwork</span></button><button class="tool" data-a="separator"><b><i data-lucide="minus"></i>Separator</b><span>Count-aware</span></button><button class="tool" data-a="spacer"><b><i data-lucide="move-vertical"></i>Spacer</b><span>Vertical space</span></button><button class="tool" data-a="item"><b><i data-lucide="list"></i>Item</b><span>Desc / qty / price</span></button><button class="tool" data-a="total"><b><i data-lucide="equal"></i>Total</b><span>Label + amount</span></button><button class="tool" data-a="barcode"><b><i data-lucide="barcode"></i>Barcode</b><span>Design element</span></button><button class="tool" data-a="qr"><b><i data-lucide="qr-code"></i>QR code</b><span>Design element</span></button></div></div><div class="panel"><h3>Templates</h3><div class="tools"><button class="tool" data-t="retail"><b><i data-lucide="shirt"></i>Retail receipt</b><span>Store, tax & barcode</span></button><button class="tool" data-t="simple"><b><i data-lucide="receipt"></i>Simple</b><span>Minimal starter</span></button></div></div><div class="panel"><h3>Receipt size</h3><div class="field"><label>Width</label><div class="row"><input id="width" type="number" min="25" max="250" step=".1" value="80"><select id="unit"><option>mm</option><option>px</option></select></div></div><div class="field"><label>Height</label><select id="hm"><option value="auto">Auto — fit content</option><option value="fixed">Fixed</option></select></div><div class="field hidden" id="hf"><label>Fixed height</label><input id="height" type="number" min="20" max="1000" value="180"></div><div class="field"><label>Horizontal padding (mm)</label><input id="pad" type="number" min="0" max="30" step=".5" value="4"></div><div class="notice">Separator sizing is content-aware. If you enter <b>----------------</b>, the editor counts the 16 dash characters and maps them to the current receipt character capacity.</div>
+</div><div class="panel"><h3>Receipt fonts</h3>
+<div class="field"><label>Default receipt font</label>
+<select id="defaultFont" class="selectbox">
+<option value="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace" selected>JetBrains Mono</option>
+<option value="'Courier Prime',ui-monospace,Menlo,Monaco,Consolas,monospace">Courier Prime</option>
+<option value="'Space Mono',ui-monospace,Menlo,Monaco,Consolas,monospace">Space Mono</option>
+<option value="'IBM Plex Mono',ui-monospace,Menlo,Monaco,Consolas,monospace">IBM Plex Mono</option>
+<option value="'Roboto Mono',ui-monospace,Menlo,Monaco,Consolas,monospace">Roboto Mono</option>
+<option value="'PT Mono',ui-monospace,Menlo,Monaco,Consolas,monospace">PT Mono</option>
+<option value="'Share Tech Mono',ui-monospace,Menlo,Monaco,Consolas,monospace">Share Tech Mono</option>
+<option value="'VT323',ui-monospace,Menlo,Monaco,Consolas,monospace">VT323 (digital)</option>
+<option value="ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono',monospace">Thermal Mono</option>
+<option value="'Courier New',Courier,monospace">Courier New</option>
+<option value="monospace">Monospace</option>
+<option value="Arial,sans-serif">Arial</option>
+<option value="Georgia,serif">Georgia</option>
+<option value="system-ui,sans-serif">System UI</option>
+</select></div>
+<div class="font-preview" id="fontPreview">1234567890 • RECEIPT</div>
+<div class="notice">The selected font becomes the default for new text and can be overridden per element.</div>
+<div class="field" style="margin-top:12px"><label>Add any Google Font</label><div class="row"><input id="customFontName" type="text" placeholder="e.g. Oswald, Bebas Neue…"><button class="btn small" id="addFontBtn"><i data-lucide="plus"></i>Add</button></div></div>
+<div class="row" style="flex-wrap:wrap;gap:5px;margin-top:6px" id="fontSuggestions"></div>
+<div class="row" style="flex-wrap:wrap;gap:5px;margin-top:8px" id="customFontList"></div>
+</div><div class="panel"><h3>Quick sizes</h3><div class="row"><button class="btn small" data-s="58">58mm</button><button class="btn small" data-s="80">80mm</button><button class="btn small" data-s="100">100mm</button><button class="btn small" data-s="120">120mm</button></div></div><div class="panel"><h3>Reference image</h3><div class="notice">Upload a photo of a real receipt to trace over as a faint on‑canvas guide. It's only a guide — it never becomes part of the printed receipt or the exported HTML.</div>
+<div class="upload-drop" id="refDrop" style="margin-top:9px"><i data-lucide="image-plus"></i><b>Click to upload</b><span class="dz-sub">or drag & drop — PNG, JPG, WEBP</span></div>
+<div class="ref-controls hidden" id="refControls" style="margin-top:10px">
+<div class="field"><label>Guide opacity</label><input id="refOpacity" type="range" min="5" max="90" value="40"></div>
+<div class="row"><label style="font-size:11px;display:flex;align-items:center;gap:6px"><input id="refVisible" type="checkbox" checked> Show guide</label><button class="btn small" id="refRemove" style="margin-left:auto"><i data-lucide="x"></i>Remove</button></div>
+</div>
+</div></aside><div class="resize-handle" id="rh1"></div><section class="stage"><div class="stage-head"><span id="status"></span><span><button class="btn small" id="zo-"><i data-lucide="minus"></i></button> <span id="zl">100%</span> <button class="btn small" id="zoIn"><i data-lucide="plus"></i></button></span></div><div class="stage-scroll"><div class="receipt-wrap"><img id="refImg" class="ref-overlay hidden" alt=""><div id="receipt" class="receipt"><div id="inner" class="receipt-inner"></div></div></div></div></section><div class="resize-handle" id="rh2"></div><aside class="inspector"><div class="panel"><h3>Selected element</h3><div class="row" id="inspActions" style="margin-bottom:10px"></div><div id="insp"><div class="muted">Select an element on the receipt.</div></div></div><div class="panel"><h3>Layers</h3><div id="layers"></div></div></aside></main></div><script>
+const $=x=>document.querySelector(x);
+const uid=()=>Math.random().toString(36).slice(2,10);
+function defaultEls(){
+  return [
+    {id:uid(),t:'text',text:'YOUR RECEIPT',align:'center',size:16,bold:true,font:null,space:5},
+    {id:uid(),t:'separator',ch:'-',count:null,size:12,space:5},
+    {id:uid(),t:'text',text:'Thank you for your purchase',align:'center',size:11,bold:false,font:null,space:2}
+  ];
+}
+function retailTemplate(){
+  return [
+    {id:uid(),t:'text',text:'STORE NAME',align:'center',size:17,bold:true,font:null,space:2},
+    {id:uid(),t:'text',text:'123 Retail Ave, Springfield',align:'center',size:10,bold:false,font:null,space:0},
+    {id:uid(),t:'text',text:'(555) 010-2200 · store.example.com',align:'center',size:10,bold:false,font:null,space:5},
+    {id:uid(),t:'separator',ch:'-',count:null,size:11,space:4},
+    {id:uid(),t:'text',text:'SLIP #048213      REG 02',align:'left',size:10,bold:false,font:null,space:1},
+    {id:uid(),t:'text',text:'CASHIER: J. SMITH   TRXN #77410',align:'left',size:10,bold:false,font:null,space:5},
+    {id:uid(),t:'separator',ch:'-',count:null,size:11,space:3},
+    {id:uid(),t:'item',sku:'SKU 40217-BLK',desc:'Running Shoes',qty:1,price:'89.99',tax:'A',size:11,font:null,space:6},
+    {id:uid(),t:'item',sku:'SKU 88213-NVY',desc:'Track Jacket',qty:1,price:'64.00',tax:'A',size:11,font:null,space:6},
+    {id:uid(),t:'item',sku:'SKU 10044-WHT',desc:'Cotton Tee',qty:2,price:'22.00',tax:'A',size:11,font:null,space:5},
+    {id:uid(),t:'separator',ch:'-',count:null,size:11,space:3},
+    {id:uid(),t:'total',label:'SUBTOTAL',amount:'197.99',size:12,font:null,space:1},
+    {id:uid(),t:'text',text:'TAX A   8.00%',align:'left',size:10,bold:false,font:null,space:1},
+    {id:uid(),t:'total',label:'TAX',amount:'15.84',size:12,font:null,space:3},
+    {id:uid(),t:'total',label:'TOTAL',amount:'213.83',size:15,font:null,space:6},
+    {id:uid(),t:'text',text:'VISA •••• 4242 — APPROVED',align:'left',size:10,bold:false,font:null,space:5},
+    {id:uid(),t:'separator',ch:'-',count:null,size:11,space:4},
+    {id:uid(),t:'text',text:'MEMBER CARD •••• 7790',align:'center',size:10,bold:false,font:null,space:2},
+    {id:uid(),t:'text',text:'THANK YOU FOR SHOPPING WITH US',align:'center',size:11,bold:true,font:null,space:6},
+    {id:uid(),t:'barcode',value:'0480213774100',width:80,height:42,show:true,space:3},
+    {id:uid(),t:'text',text:'Returns accepted within 30 days with this receipt.',align:'center',size:8.5,bold:false,font:null,space:0}
+  ];
+}
+const S={
+  width:80,unit:'mm',hm:'auto',height:180,pad:4,zoom:1,sel:null,
+  font:"'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace",
+  customFonts:[],
+  clipboard:null,
+  reference:null,
+  els:retailTemplate()
+};
+function toast(msg,ok=true){
+  let w=$('.toast-wrap');
+  if(!w){w=document.createElement('div');w.className='toast-wrap';document.body.appendChild(w)}
+  const t=document.createElement('div');t.className='toast';
+  t.innerHTML=`<i data-lucide="${ok?'check-circle-2':'alert-circle'}" style="stroke:${ok?'#6ee7a8':'#ff8795'}"></i><span>${esc(msg)}</span>`;
+  w.appendChild(t);if(window.lucide)lucide.createIcons();
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(6px)';t.style.transition='.2s';setTimeout(()=>t.remove(),200)},2400);
+}
+function resizer(handle,mode){
+  handle.onmousedown=e=>{
+    e.preventDefault();handle.classList.add('active');
+    document.body.style.cursor='col-resize';document.body.style.userSelect='none';
+    const startX=e.clientX,startW=mode==='left'?$('.sidebar').offsetWidth:$('.inspector').offsetWidth;
+    function mv(ev){
+      const dx=ev.clientX-startX;
+      const w=mode==='left'?Math.max(200,Math.min(480,startW+dx)):Math.max(220,Math.min(480,startW-dx));
+      document.documentElement.style.setProperty(mode==='left'?'--sbw':'--inw',w+'px');
+      $('.main').style.gridTemplateColumns=`var(--sbw,280px) 5px 1fr 5px var(--inw,300px)`;
+    }
+    function up(){handle.classList.remove('active');document.body.style.cursor='';document.body.style.userSelect='';document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up)}
+    document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up);
+  };
+}
+resizer($('#rh1'),'left');resizer($('#rh2'),'right');
+function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function makeDropzone(container,{accept='image/*',hint='Click to upload or drag & drop',compact=false,onFile}){
+  if(!container)return;
+  container.classList.toggle('compact',!!compact);
+  container.innerHTML=compact
+    ?`<i data-lucide="image-plus"></i><div class="dz-text"><b>${hint}</b><span class="dz-sub">Click or drop a file</span></div>`
+    :container.innerHTML;
+  const openPicker=()=>{
+    const inp=document.createElement('input');
+    inp.type='file';inp.accept=accept;inp.style.display='none';
+    inp.onchange=()=>{const f=inp.files[0];if(f)onFile(f)};
+    document.body.appendChild(inp);inp.click();
+    setTimeout(()=>inp.remove(),1000);
+  };
+  container.onclick=openPicker;
+  container.ondragover=ev=>{ev.preventDefault();container.classList.add('drag')};
+  container.ondragleave=()=>container.classList.remove('drag');
+  container.ondrop=ev=>{
+    ev.preventDefault();container.classList.remove('drag');
+    const f=ev.dataTransfer.files[0];if(f)onFile(f);
+  };
+  if(window.lucide)lucide.createIcons();
+}
+function setReference(dataUrl){
+  S.reference={src:dataUrl,opacity:40,visible:true};
+  applyReference();
+  $('#refControls').classList.remove('hidden');
+  toast('Reference added — trace over it, it never prints');
+}
+function applyReference(){
+  const img=$('#refImg');
+  if(!S.reference||!S.reference.src){img.classList.add('hidden');img.removeAttribute('src');return}
+  img.src=S.reference.src;
+  img.style.opacity=S.reference.visible?(S.reference.opacity/100):0;
+  img.classList.toggle('hidden',!S.reference.visible);
+}
+function e(){return S.els.find(x=>x.id===S.sel)}
+function px(){return (S.unit==='mm'?S.width*3.779527559:S.width)*S.zoom}
+function cap(){return Math.max(10,Math.floor((S.unit==='mm'?S.width*3.779527559:S.width)/7.15))}
+function sep(x){
+  let n=Number(x.count)||cap();
+  return {n,ch:(x.ch||'-')[0],text:(x.ch||'-')[0].repeat(Math.max(1,n)),cap:cap()}
+}
+function fontFor(x){return x.font||S.font}
+function safeUrl(v){
+  try{
+    const u=new URL(v);
+    return /^https?:$/.test(u.protocol)?u.toString():null;
+  }catch{return null}
+}
+function qrUrl(value,size){
+  const clean=String(value||'').trim();
+  const encoded=encodeURIComponent(clean);
+  return `https://api.qrserver.com/v1/create-qr-code/?size=${Math.max(120,Math.round(size*5))}x${Math.max(120,Math.round(size*5))}&margin=8&data=${encoded}`;
+}
+function barcode(v,w,h,txt){
+  let bits='1011';
+  for(const c of String(v)){bits+='10'+c.charCodeAt(0).toString(2).padStart(8,'0')+'1'}
+  bits+='1011';
+  const r=bits.split('').map((b,i)=>b==='1'?`<rect x="${i}" y="0" width="1" height="${h}"/>`:'').join('');
+  return `<svg viewBox="0 0 ${bits.length} ${h+(txt?16:0)}" style="width:${w}%;height:auto;shape-rendering:crispEdges">${r}${txt?`<text x="${bits.length/2}" y="${h+12}" text-anchor="middle" font-family="monospace" font-size="9">${esc(v)}</text>`:''}</svg>`;
+}
+function render(){
+  const r=$('#receipt'),i=$('#inner');
+  r.style.width=px()+'px';
+  r.style.minHeight=S.hm==='fixed'?((S.unit==='mm'?S.height*3.7795:S.height)*S.zoom)+'px':'0';
+  i.style.padding=S.pad*3.7795*S.zoom+'px';
+  i.style.fontFamily=S.font;
+  i.innerHTML='';
+  S.els.forEach(x=>{
+    const d=document.createElement('div');
+    d.className='el'; d.dataset.id=x.id;
+    d.onclick=z=>{z.stopPropagation();S.sel=x.id;render()};
+    if(x.t==='text'){
+      d.className+=' text';
+      d.style.cssText+=`text-align:${x.align||'left'};font-family:${fontFor(x)};font-size:${(x.size||12)*S.zoom}px;font-weight:${x.bold?700:400};margin-bottom:${(x.space||0)*S.zoom}px;margin-left:${(x.offL||0)*S.zoom}px;margin-right:${(x.offR||0)*S.zoom}px`;
+      d.textContent=x.text||'';
+    }else if(x.t==='separator'){
+      const q=sep(x); d.className+=' sep';
+      d.style.cssText+=`font-family:${fontFor(x)};font-size:${(x.size||12)*S.zoom}px;margin-bottom:${(x.space||0)*S.zoom}px;margin-left:${(x.offL||0)*S.zoom}px;margin-right:${(x.offR||0)*S.zoom}px`;
+      d.textContent=q.text; d.title=`${q.n} ${q.ch} characters · ${q.cap} character capacity`;
+    }else if(x.t==='spacer'){
+      d.style.height=(x.height||12)*S.zoom+'px';
+    }else if(x.t==='item'){
+      d.style.cssText+=`font-family:${fontFor(x)};font-size:${(x.size||12)*S.zoom}px;margin-bottom:${(x.space||1)*S.zoom}px;margin-left:${(x.offL||0)*S.zoom}px;margin-right:${(x.offR||0)*S.zoom}px`;
+      d.innerHTML=(x.sku?`<div class="item-sku">${esc(x.sku)}</div>`:'')+
+        `<div class="item"><span>${esc(x.desc||'Item')}</span><span>${esc(x.qty||1)}</span><span>${esc(x.price||'0.00')}${x.tax?' '+esc(x.tax):''}</span></div>`;
+    }else if(x.t==='total'){
+      d.className+=' total';
+      d.style.cssText+=`font-family:${fontFor(x)};font-size:${(x.size||13)*S.zoom}px;margin-bottom:${(x.space||2)*S.zoom}px;margin-left:${(x.offL||0)*S.zoom}px;margin-right:${(x.offR||0)*S.zoom}px`;
+      d.innerHTML=`<span>${esc(x.label||'TOTAL')}</span><span>${esc(x.amount||'0.00')}</span>`;
+    }else if(x.t==='image'){
+      d.className+=' image'; d.style.marginBottom=(x.space||2)*S.zoom+'px';
+      d.innerHTML=x.src?`<img src="${x.src}" style="width:${x.width||70}%">`:'<div class="empty">Image element — choose an image in the inspector</div>';
+    }else if(x.t==='barcode'){
+      d.style.textAlign=x.align||'center'; d.style.marginBottom=(x.space||3)*S.zoom+'px';
+      d.innerHTML=barcode(x.value||'DESIGN-0001',x.width||85,x.height||45,x.show!==false);
+    }else if(x.t==='qr'){
+      d.style.textAlign=x.align||'center'; d.style.marginBottom=(x.space||3)*S.zoom+'px';
+      const q=qrUrl(x.value||'https://example.com',x.size||30);
+      d.innerHTML=`<img loading="lazy" alt="QR code" src="${q}" style="width:${Math.min(80,Math.max(10,x.size||30))}%;height:auto;display:block;margin:auto" onerror="this.nextElementSibling.hidden=false">`+
+      `<div class="notice warn" hidden>QR service unavailable. Check your connection.</div>`;
+    }
+    if(S.sel===x.id)d.classList.add('selected');
+    i.appendChild(d);
+  });
+  layers();insp();
+  $('#status').textContent=`${S.width}${S.unit} · ${S.hm==='auto'?'Auto height':'Fixed height'} · ${cap()} chars/line`;
+  $('#zl').textContent=Math.round(S.zoom*100)+'%';
+  if(window.lucide)lucide.createIcons();
+}
+function layers(){
+  const b=$('#layers');b.innerHTML='';
+  const names={text:'Text',image:'Image',separator:'Separator',spacer:'Spacer',item:'Item',total:'Total',barcode:'Barcode',qr:'QR code'};
+  [...S.els].reverse().forEach(x=>{
+    const d=document.createElement('div');
+    d.className='layer '+(x.id===S.sel?'active':'');
+    d.innerHTML=`
+      <i class="icon" data-lucide="grip-vertical" style="width:14px;height:14px"></i><span class="layer-name">${names[x.t]}</span>
+      <span class="layer-actions">
+        <button class="iconbtn" data-u title="Move up"><i data-lucide="chevron-up"></i></button>
+        <button class="iconbtn" data-d title="Move down"><i data-lucide="chevron-down"></i></button>
+        <button class="iconbtn" data-c title="Duplicate"><i data-lucide="copy"></i></button>
+        <button class="iconbtn danger" data-x title="Delete"><i data-lucide="trash-2"></i></button>
+      </span>`;
+    d.onclick=()=>{S.sel=x.id;render()};
+    d.querySelector('[data-x]').onclick=z=>{z.stopPropagation();S.els=S.els.filter(a=>a.id!==x.id);if(S.sel===x.id)S.sel=null;render()};
+    d.querySelector('[data-u]').onclick=z=>{z.stopPropagation();move(x.id,-1)};
+    d.querySelector('[data-d]').onclick=z=>{z.stopPropagation();move(x.id,1)};
+    d.querySelector('[data-c]').onclick=z=>{z.stopPropagation();duplicate(x.id)};
+    b.appendChild(d);
+  });
+}
+function move(id,n){
+  const a=S.els.findIndex(x=>x.id===id),b=a+n;
+  if(b<0||b>=S.els.length)return;
+  [S.els[a],S.els[b]]=[S.els[b],S.els[a]];render();
+}
+function duplicate(id){
+  const idx=S.els.findIndex(a=>a.id===id);
+  if(idx<0)return;
+  const copy=JSON.parse(JSON.stringify(S.els[idx]));
+  copy.id=uid();
+  S.els.splice(idx+1,0,copy);
+  S.sel=copy.id;render();toast('Element duplicated');
+}
+function copySel(){
+  const x=e();if(!x)return;
+  S.clipboard=JSON.parse(JSON.stringify(x));
+  toast('Copied — press Ctrl+V to paste');
+}
+function pasteClipboard(){
+  if(!S.clipboard)return;
+  const copy=JSON.parse(JSON.stringify(S.clipboard));
+  copy.id=uid();
+  const idx=S.sel?S.els.findIndex(a=>a.id===S.sel):S.els.length-1;
+  S.els.splice(idx+1,0,copy);
+  S.sel=copy.id;render();toast('Pasted');
+}
+function fld(l,k,v,type='text',extra=''){
+  return `<div class="field"><label>${l}</label><input data-k="${k}" type="${type}" value="${esc(v??'')}" ${extra}></div>`
+}
+function fld2(l1,k1,v1,l2,k2,v2){
+  return `<div class="field"><label>Left offset / Right offset (px)</label><div class="row"><input data-k="${k1}" type="number" min="-60" max="200" step="1" value="${esc(v1||0)}" title="${l1}"><input data-k="${k2}" type="number" min="-60" max="200" step="1" value="${esc(v2||0)}" title="${l2}"></div></div>`
+}
+function alignFld(v){
+  return `<div class="field"><label>Alignment</label><select data-k="align" class="selectbox"><option value="left" ${v==='left'?'selected':''}>left</option><option value="center" ${(!v||v==='center')?'selected':''}>center</option><option value="right" ${v==='right'?'selected':''}>right</option></select></div>`
+}
+const fontOptions=[
+  ["JetBrains Mono","'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace"],
+  ["Courier Prime","'Courier Prime',ui-monospace,Menlo,Monaco,Consolas,monospace"],
+  ["Space Mono","'Space Mono',ui-monospace,Menlo,Monaco,Consolas,monospace"],
+  ["IBM Plex Mono","'IBM Plex Mono',ui-monospace,Menlo,Monaco,Consolas,monospace"],
+  ["Roboto Mono","'Roboto Mono',ui-monospace,Menlo,Monaco,Consolas,monospace"],
+  ["PT Mono","'PT Mono',ui-monospace,Menlo,Monaco,Consolas,monospace"],
+  ["Share Tech Mono","'Share Tech Mono',ui-monospace,Menlo,Monaco,Consolas,monospace"],
+  ["VT323 (digital)","'VT323',ui-monospace,Menlo,Monaco,Consolas,monospace"],
+  ["Thermal Mono","ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono',monospace"],
+  ["Courier New","'Courier New',Courier,monospace"],
+  ["Monospace","monospace"],
+  ["Arial","Arial,sans-serif"],
+  ["Georgia","Georgia,serif"],
+  ["System UI","system-ui,sans-serif"]
+];
+function fontSelect(value){
+  const all=[...fontOptions,...S.customFonts.map(f=>[f.name,f.css])];
+  return `<div class="field"><label>Font</label><select data-k="font" class="selectbox"><option value="">Default receipt font</option>${all.map(([n,v])=>`<option value="${esc(v)}" ${value===v?'selected':''}>${n}</option>`).join('')}</select></div>`
+}
+function loadGoogleFont(name){
+  const id='gf-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  if(document.getElementById(id))return;
+  const link=document.createElement('link');link.id=id;link.rel='stylesheet';
+  link.href=`https://fonts.googleapis.com/css2?family=${encodeURIComponent(name).replace(/%20/g,'+')}:wght@400;700&display=swap`;
+  document.head.appendChild(link);
+}
+function customFontCss(name){return `'${name}',ui-monospace,Menlo,Monaco,Consolas,monospace`}
+function addCustomFont(name){
+  name=(name||'').trim();
+  if(!name)return;
+  if(S.customFonts.some(f=>f.name.toLowerCase()===name.toLowerCase()))return toast(`${name} is already added`,false);
+  loadGoogleFont(name);
+  S.customFonts.push({name,css:customFontCss(name)});
+  syncFontUI();
+  toast(`${name} added to fonts`);
+}
+function removeCustomFont(i){S.customFonts.splice(i,1);syncFontUI();render()}
+function syncFontUI(){
+  const dsel=$('#defaultFont');
+  [...dsel.querySelectorAll('option[data-custom]')].forEach(o=>o.remove());
+  S.customFonts.forEach(f=>{
+    const opt=document.createElement('option');
+    opt.value=f.css;opt.textContent=f.name;opt.dataset.custom='1';
+    dsel.appendChild(opt);
+  });
+  const list=$('#customFontList');list.innerHTML='';
+  S.customFonts.forEach((f,i)=>{
+    const c=document.createElement('span');c.className='chip rm';
+    c.innerHTML=`${esc(f.name)} <i data-lucide="x"></i>`;
+    c.onclick=()=>removeCustomFont(i);
+    list.appendChild(c);
+  });
+  if(window.lucide)lucide.createIcons();
+}
+const suggestedFonts=['Oswald','Bebas Neue','Archivo Narrow','DM Mono','Chivo Mono','Anton'];
+$('#fontSuggestions').innerHTML=suggestedFonts.map(f=>`<span class="chip" data-sug="${esc(f)}"><i data-lucide="plus"></i>${esc(f)}</span>`).join('');
+$('#fontSuggestions').querySelectorAll('[data-sug]').forEach(c=>c.onclick=()=>addCustomFont(c.dataset.sug));
+$('#addFontBtn').onclick=()=>{addCustomFont($('#customFontName').value);$('#customFontName').value=''};
+$('#customFontName').onkeydown=z=>{if(z.key==='Enter'){z.preventDefault();$('#addFontBtn').click()}};
+function insp(){
+  const b=$('#insp'),x=e(),actions=$('#inspActions');
+  if(!x){b.innerHTML='<div class="muted">Select an element on the receipt.</div>';if(actions)actions.innerHTML='';return}
+  if(actions)actions.innerHTML=`<button class="btn small" id="dupBtn"><i data-lucide="copy"></i>Duplicate</button><button class="btn small" id="copyBtn" title="Copy (Ctrl+C)"><i data-lucide="clipboard"></i></button><button class="btn small" id="delBtn" style="color:#ff8795"><i data-lucide="trash-2"></i></button>`;
+  let h='';
+  if(x.t==='text'){
+    h=fld('Text','text',x.text)+fontSelect(x.font)+
+      alignFld(x.align)+
+      fld('Font size','size',x.size,'number','min="5" max="40" step=".5"')+
+      `<label style="font-size:11px"><input data-k="bold" type="checkbox" ${x.bold?'checked':''}> Bold</label>`+
+      fld2('Left offset','offL',x.offL,'Right offset','offR',x.offR);
+  }
+  if(x.t==='separator'){
+    const q=sep(x);
+    h=fld('Character','ch',q.ch)+fld('Character count','count',q.n,'number','min="1" max="500"')+
+      `<div class="notice" style="margin-bottom:10px">At ${S.width}${S.unit}: <b>${q.cap}</b> characters/line. The separator uses <b>${q.n}</b>. The count stays intact when the receipt width changes.</div>`+
+      fld('Font size','size',x.size,'number','min="6" max="30" step=".5"')+fontSelect(x.font)+
+      fld2('Left offset','offL',x.offL,'Right offset','offR',x.offR);
+  }
+  if(x.t==='spacer')h=fld('Height','height',x.height,'number','min="1" max="100" step=".5"');
+  if(x.t==='item')h=fld('Product ID / SKU (optional)','sku',x.sku)+fld('Description','desc',x.desc)+fld('Quantity','qty',x.qty)+fld('Price','price',x.price)+fld('Tax code (optional)','tax',x.tax)+fld('Font size','size',x.size,'number','min="7" max="30"')+fontSelect(x.font)+fld2('Left offset','offL',x.offL,'Right offset','offR',x.offR);
+  if(x.t==='total')h=fld('Label','label',x.label)+fld('Amount','amount',x.amount)+fld('Font size','size',x.size,'number','min="7" max="30"')+fontSelect(x.font)+fld2('Left offset','offL',x.offL,'Right offset','offR',x.offR);
+  if(x.t==='image')h=`<div class="field"><label>Image</label>${x.src?`<img class="thumb" src="${x.src}">`:''}<div class="upload-drop compact" id="eiDrop"></div></div>`+fld('Width %','width',x.width,'number','min="5" max="100"');
+  if(x.t==='barcode')h=fld('Value','value',x.value)+alignFld(x.align)+fld('Width %','width',x.width,'number','min="15" max="100"')+fld('Height','height',x.height,'number','min="20" max="150"')+`<label style="font-size:11px"><input data-k="show" type="checkbox" ${x.show!==false?'checked':''}> Show text</label>`;
+  if(x.t==='qr'){
+    h=`
+      <div class="field"><label>Website / URL / text</label><input data-k="value" type="text" value="${esc(x.value||'https://example.com')}" placeholder="https://example.com"></div>
+      <div class="preset-grid">
+        <button class="preset" data-url="https://www.vinted.co.uk/">Vinted</button>
+        <button class="preset" data-url="https://www.google.com/">Google</button>
+        <button class="preset" data-url="https://www.youtube.com/">YouTube</button>
+        <button class="preset" data-url="https://www.instagram.com/">Instagram</button>
+        <button class="preset" data-url="https://www.tiktok.com/">TikTok</button>
+        <button class="preset" data-url="https://example.com/">Example</button>
+      </div>
+      <div class="url-preview">${esc(x.value||'')}</div>
+      ${alignFld(x.align)}
+      ${fld('Size %','size',x.size,'number','min="10" max="80"')}
+      <div class="notice success">QR content is encoded from the field above. Website links open when scanned.</div>
+    `;
+  }
+  if(x.t!=='spacer'&&x.t!=='image'&&x.t!=='qr')h+=fld('Space after','space',x.space||0,'number','min="0" max="30" step=".5"');
+  if(x.t==='qr')h+=fld('Space after','space',x.space||0,'number','min="0" max="30" step=".5"');
+  b.innerHTML=h;
+  b.querySelectorAll('[data-k]').forEach(z=>z.oninput=()=>{
+    const k=z.dataset.k;
+    x[k]=z.type==='checkbox'?z.checked:z.type==='number'?Number(z.value):z.value;
+    render();
+  });
+  b.querySelectorAll('[data-url]').forEach(z=>z.onclick=()=>{x.value=z.dataset.url;render()});
+  const eiDrop=$('#eiDrop');
+  if(eiDrop)makeDropzone(eiDrop,{accept:'image/*',compact:true,hint:x.src?'Replace image':'Click to upload',onFile:file=>{
+    if(!file.type.startsWith('image/'))return toast('Please choose an image file.',false);
+    const r=new FileReader();r.onload=()=>{x.src=r.result;render()};r.readAsDataURL(file);
+  }});
+  if(actions){
+    $('#dupBtn').onclick=()=>duplicate(x.id);
+    $('#copyBtn').onclick=()=>copySel();
+    $('#delBtn').onclick=()=>{S.els=S.els.filter(a=>a.id!==x.id);S.sel=null;render()};
+  }
+}
+function add(t){
+  let x={id:uid(),t};
+  if(t==='text')Object.assign(x,{text:'New text',align:'left',size:12,bold:false,font:null,space:2});
+  if(t==='separator')Object.assign(x,{ch:'-',count:null,size:12,font:null,space:3});
+  if(t==='spacer')Object.assign(x,{height:12});
+  if(t==='item')Object.assign(x,{sku:'',desc:'Item',qty:'1',price:'0.00',tax:'',size:12,font:null,space:1});
+  if(t==='total')Object.assign(x,{label:'TOTAL',amount:'0.00',size:13,font:null,space:2});
+  if(t==='image')Object.assign(x,{src:'',width:70,space:3});
+  if(t==='barcode')Object.assign(x,{value:'DESIGN-0001',width:85,height:45,show:true});
+  if(t==='qr')Object.assign(x,{value:'https://example.com',size:30,space:3});
+  S.els.push(x);S.sel=x.id;render();
+}
+document.querySelectorAll('[data-a]').forEach(x=>x.onclick=()=>add(x.dataset.a));
+document.querySelectorAll('[data-s]').forEach(x=>x.onclick=()=>{
+  S.width=+x.dataset.s;S.unit='mm';$('#width').value=S.width;$('#unit').value='mm';render();
+});
+$('#width').oninput=x=>{S.width=Math.max(25,+x.target.value||80);render()};
+$('#unit').onchange=x=>{S.unit=x.target.value;render()};
+$('#hm').onchange=x=>{S.hm=x.target.value;$('#hf').classList.toggle('hidden',S.hm!=='fixed');render()};
+$('#height').oninput=x=>{S.height=+x.target.value||180;render()};
+$('#pad').oninput=x=>{S.pad=+x.target.value||0;render()};
+$('#defaultFont').onchange=x=>{S.font=x.target.value;$('#fontPreview').style.fontFamily=S.font;render()};
+$('#zoIn').onclick=()=>{S.zoom=Math.min(2.5,S.zoom+.1);render()};
+$('#zo-').onclick=()=>{S.zoom=Math.max(.5,S.zoom-.1);render()};
+$('#new').onclick=()=>{
+  if(confirm('Start a new receipt? This replaces the current layout.')){
+    S.els=retailTemplate();S.sel=null;render();toast('New receipt started');
+  }
+};
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+  if(!confirm('Load this template? This replaces the current layout.'))return;
+  S.els=b.dataset.t==='retail'?retailTemplate():defaultEls();
+  S.sel=null;render();toast('Template loaded');
+});
+
+makeDropzone($('#refDrop'),{accept:'image/png,image/jpeg,image/webp',onFile:file=>{
+  if(!file.type.startsWith('image/'))return toast('Please choose an image file.',false);
+  const r=new FileReader();r.onload=()=>setReference(r.result);r.readAsDataURL(file);
+}});
+$('#img').onclick=()=>$('#refDrop').click();
+$('#refOpacity').oninput=x=>{if(S.reference){S.reference.opacity=+x.target.value;applyReference()}};
+$('#refVisible').onchange=x=>{if(S.reference){S.reference.visible=x.target.checked;applyReference()}};
+$('#refRemove').onclick=()=>{S.reference=null;applyReference();$('#refControls').classList.add('hidden');toast('Reference removed')};
+
+$('#print').onclick=()=>window.print();
+
+function projectData(){return JSON.stringify({version:3,app:'Vinted Valley Receipt Studio',savedAt:new Date().toISOString(),settings:{width:S.width,unit:S.unit,hm:S.hm,height:S.height,pad:S.pad,font:S.font,customFonts:S.customFonts},elements:S.els},null,2)}
+$('#save').onclick=()=>{
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([projectData()],{type:'application/json'}));
+  a.download='receipt-studio-project.json';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),500);
+  toast('Project saved as JSON');
+};
+$('#loadBtn').onclick=()=>$('#projectFile').click();
+$('#projectFile').onchange=()=>{
+  const f=$('#projectFile').files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const p=JSON.parse(r.result);
+      if(!Array.isArray(p.elements))throw new Error('Invalid project');
+      Object.assign(S,p.settings||{});S.els=p.elements;S.sel=null;
+      S.customFonts=S.customFonts||[];
+      S.customFonts.forEach(f=>loadGoogleFont(f.name));
+      syncFontUI();
+      $('#width').value=S.width;$('#unit').value=S.unit;$('#hm').value=S.hm;$('#height').value=S.height;$('#pad').value=S.pad;$('#defaultFont').value=S.font;
+      $('#hf').classList.toggle('hidden',S.hm!=='fixed');render();toast('Project loaded');
+    }catch(err){toast('That project file could not be loaded.',false)}
+  };
+  r.readAsText(f);
+};
+
+$('#html').onclick=()=>{
+  const out='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Receipt template</title><style>'+
+    document.querySelector('style').innerHTML+
+    '</style></head><body style="background:#eee;display:flex;justify-content:center;padding:30px">'+
+    $('#receipt').outerHTML+
+    '</body></html>';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([out],{type:'text/html'}));
+  a.download='receipt-template.html';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),500);
+  toast('HTML template exported');
+};
+
+document.addEventListener('keydown',x=>{
+  const tag=(document.activeElement&&document.activeElement.tagName)||'';
+  const typing=tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(document.activeElement&&document.activeElement.isContentEditable);
+  if((x.ctrlKey||x.metaKey)&&x.key.toLowerCase()==='s'){x.preventDefault();$('#save').click();return}
+  if(typing)return;
+  if((x.ctrlKey||x.metaKey)&&x.key.toLowerCase()==='d'){x.preventDefault();if(S.sel)duplicate(S.sel);return}
+  if((x.ctrlKey||x.metaKey)&&x.key.toLowerCase()==='c'){if(S.sel)copySel();return}
+  if((x.ctrlKey||x.metaKey)&&x.key.toLowerCase()==='v'){if(S.clipboard)pasteClipboard();return}
+  if((x.key==='Delete'||x.key==='Backspace')&&S.sel){x.preventDefault();S.els=S.els.filter(a=>a.id!==S.sel);S.sel=null;render()}
+});
+syncFontUI();
+render();
+</script><style>@media print{body{background:#fff!important}.top,.sidebar,.inspector,.stage-head{display:none!important}.app{display:block;height:auto}.main,.stage-scroll{display:block}.stage{overflow:visible}.stage-scroll{padding:0}.receipt{box-shadow:none!important;margin:0 auto}.ref-overlay{display:none!important}}</style></body></html>
